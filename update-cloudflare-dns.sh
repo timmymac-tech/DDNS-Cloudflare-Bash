@@ -121,7 +121,11 @@ if [ "${what_ip}" == "external" ]; then
     exit 0
   fi
   if ! [[ "$ip" =~ $REIP ]]; then
-    echo "Error! IP Address returned was invalid!"
+    had_error="true"
+    error_msg="Error! IP Address returned was invalid!"
+    echo $error_msg
+    email_notify
+    telegram_notify
     exit 0
   fi
   echo "==> External IP is: $ip"
